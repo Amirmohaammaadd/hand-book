@@ -1,0 +1,16 @@
+{
+    "workbench.colorCustomizations": {
+        // وقتی فوکوس روی Explorer است
+        "list.activeSelectionBackground": "#3b82f655",
+        "list.activeSelectionForeground": "#ffffff",
+        // وقتی فوکوس جای دیگر است (مثلاً داخل ادیتور)
+        "list.inactiveSelectionBackground": "#3b82f655",
+        "list.inactiveSelectionForeground": "#ffffff",
+        // کادر دور آیتم فوکوس‌شده
+        "list.focusOutline": "#3b82f6",
+        "list.focusAndSelectionOutline": "#3b82f6",
+        // وقتی موس روی فایل می‌رود
+        "list.hoverBackground": "#3b82f622",
+        "list.hoverForeground": "#ffffff"
+    }
+}
