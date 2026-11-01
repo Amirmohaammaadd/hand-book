@@ -10,12 +10,12 @@ const MENU = Array.from({ length: 20_000 }, (_, i) => `غذا شماره ${i}`)
 // 🧑‍💼 گارسون: سفارش را فوراً یادداشت می‌کند
 // (state اینجاست؛ آشپزخانه به آن دسترسی ندارد)
 // ─────────────────────────────────────────────
-export default function Restaurant() {
+function Restaurant() {
   const [order, setOrder] = useState('')
 
   return (
     <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-3">🍽️ رستوران</h1>
+      <h1 className="text-xl font-bold mb-3"> رستوران</h1>
 
       <input
         value={order}
@@ -39,13 +39,18 @@ function Kitchen({ order }: { order: string }) {
 
   return (
     <div>
-      <p className="text-sm mb-2">
-        📝 سفارش گارسون: <b>{order || '—'}</b>
+      <div className="text-sm mb-2 flex justify-between">
+        <p>
+          سفارش گارسون: <b>{order || '—'}</b>
+        </p>
         {' | '}
-        🍳 در حال پختن: <b>{cookingOrder || '—'}</b>
-      </p>
 
-      {isCooking && <p className="text-orange-500 mb-2">⏳ آشپز در حال پختن...</p>}
+        <p>
+          در حال پختن: <b>{cookingOrder || '—'}</b>
+        </p>
+      </div>
+
+      {isCooking && <p className="text-orange-500 mb-2"> آشپز در حال پختن...</p>}
 
       {/* بشقاب قبلی کم‌رنگ می‌ماند تا غذای جدید آماده شود */}
       <div style={{ opacity: isCooking ? 0.4 : 1, transition: 'opacity 0.2s' }}>
@@ -76,3 +81,5 @@ const HeavyDish = memo(function HeavyDish({ order }: { order: string }) {
     </ul>
   )
 })
+
+export default Restaurant
