@@ -24,30 +24,25 @@ export function classNames(...args: Array<ClassValue>): string {
       if (typeof arg === 'string' || typeof arg === 'number') {
         classes.push(arg.toString());
 
-        console.log("a : ", classes);
 
       } else if (Array.isArray(arg)) {
         const inner = classNames(...arg);
         if (inner) classes.push(inner);
 
-        console.log("b : ", classes);
-
+        // اگه اون رشته خالی نبود (if (inner)) اضافه‌اش می‌کنیم، تا مثلاً [] یا [null] یه رشته‌ی خالی توی لیست نندازن و دو تا space پشت سر هم نسازن.
 
       } else if (typeof arg === 'object') {
         for (const key in arg) {
           if (arg[key]) classes.push(key);
         }
 
-        console.log("c : ", classes);
-
+        // روی کلیدهاش حلقه می‌زنیم. اگه value اون کلید truthy بود، خودِ کلید رو به عنوان اسم کلاس اضافه می‌کنیم. مثلاً { foo: true, bar: false } فقط 'foo' رو اضافه می‌کنه.
       }
     };
   }
 
   return classes.join('')
 }
-
-classNames('a', ['b', { c: true, d: false }])
 
 
 const Page = () => {
