@@ -8,7 +8,7 @@ const flatten = (arr: unknown[]): unknown[] => {
 
     for (const item of arr) {
         if (Array.isArray(item)) {
-            result.push(...flatten(item))
+            result.push(...flatten(item)) // این خط یعنی: «اگه آیتم خودش آرایه بود، اول اون رو flatten کن (recursive)، بعد عناصر صاف‌شده‌اش رو یکی‌یکی بریز توی result».
         } else {
             result.push(item)
         }
