@@ -1,39 +1,71 @@
-"use client"
+  console.log('A'); //1
 
-import { useEffect } from "react";
+  setTimeout(() => {
+    console.log('B'); //4
 
-// //Maximum call stack size exceeded
+    Promise.resolve().then(() => {
+      console.log('C'); //5
 
-//   function boom() {
-//     return boom();
-//   }
+      setTimeout(() => {
+        console.log('D'); //9
+      }, 0);
+    });
 
-//   boom();
+    setTimeout(() => {
+      console.log('E'); //6
+    }, 0);
+  }, 0);
 
-const A = () => {
-    console.log("this is A");
-    B()
-}
+  Promise.resolve().then(() => {
+    console.log('F'); //3
 
-const B = () => {
-    console.log("this is B");
-    C()
-}
+    setTimeout(() => {
+      console.log('G'); //7
+    }, 0);
+  });
 
-const C = () => {
-    console.log("this is C");
-    D()
-}
+  console.log('H'); //2 
 
-const D = () => {
-    console.log("this is D");
-    // throw new Error("Err from D")
-}
+  // ---------------------------------------
 
- const CallStackPage = () => {
-    useEffect(() => {
-        A()
-    }, [])
-}
+  console.log('1'); //1
 
-export default CallStackPage
+  setTimeout(() => {
+    console.log('2'); //7
+
+    Promise.resolve().then(() => {
+      console.log('3'); //8
+    });
+
+    setTimeout(() => {
+      console.log('4'); //11
+    }, 0);
+  }, 0);
+
+  Promise.resolve().then(async () => {
+    console.log('5'); //3
+
+    await Promise.resolve();
+
+    console.log('6'); //5
+
+    Promise.resolve().then(() => {
+      console.log('7'); //6
+    });
+  });
+
+  queueMicrotask(() => {
+    console.log('8'); //4
+
+    setTimeout(() => {
+      console.log('9'); //10
+    }, 0);
+  });
+
+  setTimeout(() => {
+    console.log('10'); //9
+  }, 0);
+
+  console.log('11'); //2
+
+  // ------------------------------------ 
