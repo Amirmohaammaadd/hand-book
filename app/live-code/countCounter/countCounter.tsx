@@ -17,5 +17,4 @@ const countCounter = (str: string): Record<string, number> => {
     return result
 }
 
-
 console.log(countCounter("thisisjustatest"));
