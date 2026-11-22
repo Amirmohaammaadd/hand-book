@@ -7,8 +7,6 @@ export default function Page() {
 
 
 
-  
-
   return (
     <div className="flex gap-5 flex-col justify-center items-center h-dvh">
 
