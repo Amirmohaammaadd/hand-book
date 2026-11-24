@@ -48,3 +48,35 @@ export default function useQuery<T>(
 
     return state;
 }
+
+// ------------------------ 3 times retry
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
+async function fetchWithRetry(
+    url: string,
+    options: RequestInit = {},
+    { retries = 3, baseDelay = 500, timeout = 5000 } = {}
+): Promise<Response> {
+    for (let attempt = 0; attempt <= retries; attempt++) {
+        const controller = new AbortController()
+        const timer = setTimeout(() => controller.abort(), timeout)
+
+        try {
+            const res = await fetch(url, { ...options, signal: controller.signal })
+
+            // خطای کلاینت (۴xx) retry نمی‌شه، به‌جز ۴۲۹
+            if (res.ok || (res.status < 500 && res.status !== 429)) return res
+            if (attempt === retries) return res
+        } catch (err) {
+            if (attempt === retries) throw err
+        } finally {
+            clearTimeout(timer)
+        }
+
+        // exponential backoff + jitter
+        const delay = baseDelay * 2 ** attempt + Math.random() * 100
+        await sleep(delay)
+    }
+    throw new Error("unreachable")
+}
