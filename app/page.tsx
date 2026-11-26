@@ -1,49 +1,26 @@
 export default function Page() {
 
 
-  const countCounter = (arr: number[]) => {
+  const deepClone = <T,>(value: T): T => {
 
-    let result: Record<string, number> = {}
-    let maxItem: string | undefined | number;
-    let maxCount = 0;
+    if (typeof value !== "object" || value === null) {
+      return value
+    }
 
-    arr.forEach((_, index) => {
-      const char = arr[index]
-      if (result[char]) {
-        result[char]++
-      } else {
-        result[char] = 1
-      }
+    if (Array.isArray(value)) {
+      return value.map((item) => deepClone(item)) as T
+    }
 
 
-      if (result[char] > maxCount) {
-        maxCount = result[char]
-        maxItem = char
-      }
-    })
+    const result: Record<string, unknown> = {}
 
-    return maxItem
+    for (const key in value) {
+      result[key] = deepClone((value as Record<string, unknown>)[key])
+    }
 
+    return result as T
 
-    // for (let i = 0; i < arr.length; i++) {
-
-    //   const char = arr[i]
-
-    //   if (result[char]) {
-    //     result[char]++
-    //   } else {
-    //     result[char] = 1
-    //   }
-    // }
-
-    // return result
   }
-
-
-  console.log(countCounter([1, 2, 2, 3]));
-
-
-
 
   return (
     <></>

@@ -3,12 +3,12 @@ export default function promiseAll<T extends unknown[]>(
 ): Promise<T> {
 
     return new Promise((resolve, reject) => {
+        
         const result: unknown[] = []
         let remaining = iterable.length
 
         if (remaining === 0) {
-            resolve(result as T)
-            return
+            return resolve(result as T)
         }
 
         for (let i = 0; i < iterable.length; i++) {
